@@ -46,7 +46,7 @@ function viewPage(pageNum){
     while( results.firstChild){
         results.removeChild(results.firstChild);
     }
-    if(gistsToDisplay.length != 0){
+    if(gistsObjArray.length != 0){
         for(var i = pageNum; i < pageNum+30; i++){
             var li =  document.createElement("li");
             li.appendChild(gistObjArray[i].convertToHTML());
