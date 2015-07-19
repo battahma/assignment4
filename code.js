@@ -49,7 +49,7 @@ function viewPage(pageNum){
     if(gistsToDisplay.length != 0){
         for(var i = pageNum; i < pageNum+30; i++){
             var li =  document.createElement("li");
-            li.appendChild(gistsToDisplay[i].convertToHTML());
+            li.appendChild(gistObjArray[i].convertToHTML());
             results.appendChild(li);
         }
     }
