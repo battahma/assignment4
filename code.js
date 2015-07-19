@@ -1,8 +1,16 @@
 var searchBtn = document.getElementById("searchButton");
 var results = document.getElementById("results");
+var navBtns = document.getElementsByClassName("navBtn");
 var url1 = "https://api.github.com/gists?page=1&per_page=75";
 var url2 = "https://api.github.com/gists?page=2&per_page=75";
 var gistObjArray = [];
+var gistsToDisplay = [];
+makeAjaxCall(url1);
+makeAjaxCall(url2);
+
+for(var i=0; i<navBtns.length; i++){
+    navBtns[i].addEventListener('click', navClick, false);
+}
 
 function gist(requestObj){
     this.url = requestObj.url;
@@ -12,7 +20,7 @@ function gist(requestObj){
         //var a = document.createAttribute("href");
         a.setAttribute("href", this.url);
         var text = document.createTextNode(this.description);
-        if(this.description.length == 0){
+        if(this.description == null || this.description.length == 0){
             text = document.createTextNode("No Description");
         }
         a.appendChild(text);
@@ -32,10 +40,8 @@ function makeAjaxCall(url){
                     var g = new gist(i);
                     gistObjArray.push(g);
                 })
-                console.log(gistObjArray);
             }
             else{
-                console.log("nope");
                 alert("Error!");
             }
         }
@@ -46,6 +52,28 @@ function viewPage(pageNum){
     while( results.firstChild){
         results.removeChild(results.firstChild);
     }
+    if(gistsToDisplay.length != 0){
+        console.log(pageNum*30);
+        console.log(gistsToDisplay.length);
+        if(pageNum*30 <= gistsToDisplay.length || (pageNum == 1 && gistsToDisplay.length>0)){
+            for(var i = pageNum-1; i < pageNum+29; i++){
+                var li =  document.createElement("li");
+                li.appendChild(gistsToDisplay[i].convertToHTML());
+                results.appendChild(li);
+            }
+        }
+        else{
+            var li =  document.createElement("li");
+            text = document.createTextNode("No results on this page");
+            li.appendChild(text);
+            results.appendChild(li);
+        }
+    }
+    else{
+        var li =  document.createElement("li");
+        text = document.createTextNode("No results");
+        li.appendChild(text);
+        results.appendChild(li);
     if(gistsObjArray.length != 0){
         for(var i = pageNum; i < pageNum+30; i++){
             var li =  document.createElement("li");
@@ -55,18 +83,25 @@ function viewPage(pageNum){
     }
 }
 
-searchBtn.onclick = function(){
-    /*console.log("hi");
-    var li = document.createElement("li");*/
-    var key = document.getElementById("searchQuery");
-    var keyword = key.value;
-    /*var text = document.createTextNode(keyword);
-    li.appendChild(text);
-    results.appendChild(li);*/
-    console.log(gistObjArray);
-    viewPage(1);
+function navClick(){
+    var whichBtn = this.getAttribute("id");
+    var index = parseInt(whichBtn.slice(-1));
+    viewPage(index);
 }
 
-makeAjaxCall(url1);
-makeAjaxCall(url2);
-console.log(gistObjArray);
+searchBtn.onclick = function(){
+    var key = document.getElementById("searchQuery");
+    var keyword = key.value;
+    if( keyword.length == 0){
+        gistsToDisplay = gistObjArray;
+    }
+    else{
+        gistsToDisplay = [];
+        for( var i = 0; i < gistObjArray.length; i++){
+            if(gistObjArray[i].description != null && gistObjArray[i].description.search(keyword) != -1){
+                gistsToDisplay.push(gistObjArray[i]);
+            }
+        }
+    }
+    viewPage(1);
+}
