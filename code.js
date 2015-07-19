@@ -49,14 +49,15 @@ function makeAjaxCall(url){
 }
 
 function viewPage(pageNum){
+    pageNum--;
     while( results.firstChild){
         results.removeChild(results.firstChild);
     }
     if(gistsToDisplay.length != 0){
         console.log(pageNum*30);
         console.log(gistsToDisplay.length);
-        if(pageNum*30 <= gistsToDisplay.length || (pageNum == 1 && gistsToDisplay.length>0)){
-            for(var i = pageNum-1; i < pageNum+29; i++){
+        if(pageNum*30 <= gistsToDisplay.length || (pageNum == 0 && gistsToDisplay.length>0)){
+            for(var i = pageNum*30; i < pageNum*30+30; i++){
                 var li =  document.createElement("li");
                 li.appendChild(gistsToDisplay[i].convertToHTML());
                 results.appendChild(li);
