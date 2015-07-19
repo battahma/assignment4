@@ -43,10 +43,15 @@ function makeAjaxCall(url){
 }
 
 function viewPage(pageNum){
-    for(var i = pageNum; i < pageNum+30; i++){
-        var li =  document.createElement("li");
-        li.appendChild(gistObjArray[i].convertToHTML());
-        results.appendChild(li);
+    while( results.firstChild){
+        results.removeChild(results.firstChild);
+    }
+    if(gistsToDisplay.length != 0){
+        for(var i = pageNum; i < pageNum+30; i++){
+            var li =  document.createElement("li");
+            li.appendChild(gistsToDisplay[i].convertToHTML());
+            results.appendChild(li);
+        }
     }
 }
 
