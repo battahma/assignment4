@@ -1,12 +1,16 @@
 var searchBtn = document.getElementById("searchButton");
 var results = document.getElementById("results");
-var navTable = document.getElementById("navTable");
+var navBtns = document.getElementsByClassName("navBtn");
 var url1 = "https://api.github.com/gists?page=1&per_page=75";
 var url2 = "https://api.github.com/gists?page=2&per_page=75";
 var gistObjArray = [];
 var gistsToDisplay = [];
 makeAjaxCall(url1);
 makeAjaxCall(url2);
+
+for(var i=0; i<navBtns.length; i++){
+    navBtns[i].addEventListener('click', navClick, false);
+}
 
 function gist(requestObj){
     this.url = requestObj.url;
@@ -49,10 +53,17 @@ function viewPage(pageNum){
         results.removeChild(results.firstChild);
     }
     if(gistsToDisplay.length != 0){
-        console.log(gistsToDisplay);
-        for(var i = pageNum-1; i < pageNum+29; i++){
+        if(pageNum*30 <= gistsToDisplay.length){
+            for(var i = pageNum-1; i < pageNum+29; i++){
+                var li =  document.createElement("li");
+                li.appendChild(gistsToDisplay[i].convertToHTML());
+                results.appendChild(li);
+            }
+        }
+        else{
             var li =  document.createElement("li");
-            li.appendChild(gistsToDisplay[i].convertToHTML());
+            text = document.createTextNode("No results on this page");
+            li.appendChild(text);
             results.appendChild(li);
         }
     }
@@ -62,21 +73,31 @@ function viewPage(pageNum){
         li.appendChild(text);
         results.appendChild(li);
     }
-    //navPages();
+}
+
+function navClick(){
+    var whichBtn = this.getAttribute("id");
+    var index = parseInt(whichBtn.slice(-1));
+    viewPage(index);
 }
 
 /*function navPages(){
     var tr = document.createElement("tr");
-    for( var i = 0; i < gistsToDisplay.lenght/30 + 1; i++){
+    for( var i = 0; i < gistsToDisplay.length/30 + 1; i++){
         var td = document.createElement("td");
         var currentButton = document.createElement("button");
         currentButton.setAttribute("id", "page" + i);
         currentButton.setAttribute("class", "btn btn-primary");
-        currentButton.createTextNode(i);
+        var text = document.createTextNode(i+1);
+        currentButton.appendChild(text);
         td.appendChild(currentButton);
+        console.log(td);
         tr.appendChild(td);
     }
-    navTable.removeChild(navTable.firstChild);
+    while( navTable.firstChild){
+        navTable.removeChild(navTable.firstChild);
+    }
+    console.log(tr);
     navTable.appendChild(tr);
 }*/
 
@@ -87,7 +108,6 @@ searchBtn.onclick = function(){
         gistsToDisplay = gistObjArray;
     }
     else{
-        console.log(gistObjArray.length);
         gistsToDisplay = [];
         for( var i = 0; i < gistObjArray.length; i++){
             if(gistObjArray[i].description != null && gistObjArray[i].description.search(keyword) != -1){
