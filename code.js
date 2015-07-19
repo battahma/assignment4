@@ -53,7 +53,9 @@ function viewPage(pageNum){
         results.removeChild(results.firstChild);
     }
     if(gistsToDisplay.length != 0){
-        if(pageNum*30 <= gistsToDisplay.length){
+        console.log(pageNum*30);
+        console.log(gistsToDisplay.length);
+        if(pageNum*30 <= gistsToDisplay.length || (pageNum == 1 && gistsToDisplay.length>0)){
             for(var i = pageNum-1; i < pageNum+29; i++){
                 var li =  document.createElement("li");
                 li.appendChild(gistsToDisplay[i].convertToHTML());
@@ -80,26 +82,6 @@ function navClick(){
     var index = parseInt(whichBtn.slice(-1));
     viewPage(index);
 }
-
-/*function navPages(){
-    var tr = document.createElement("tr");
-    for( var i = 0; i < gistsToDisplay.length/30 + 1; i++){
-        var td = document.createElement("td");
-        var currentButton = document.createElement("button");
-        currentButton.setAttribute("id", "page" + i);
-        currentButton.setAttribute("class", "btn btn-primary");
-        var text = document.createTextNode(i+1);
-        currentButton.appendChild(text);
-        td.appendChild(currentButton);
-        console.log(td);
-        tr.appendChild(td);
-    }
-    while( navTable.firstChild){
-        navTable.removeChild(navTable.firstChild);
-    }
-    console.log(tr);
-    navTable.appendChild(tr);
-}*/
 
 searchBtn.onclick = function(){
     var key = document.getElementById("searchQuery");
