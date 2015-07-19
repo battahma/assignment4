@@ -74,6 +74,12 @@ function viewPage(pageNum){
         text = document.createTextNode("No results");
         li.appendChild(text);
         results.appendChild(li);
+    if(gistsObjArray.length != 0){
+        for(var i = pageNum; i < pageNum+30; i++){
+            var li =  document.createElement("li");
+            li.appendChild(gistObjArray[i].convertToHTML());
+            results.appendChild(li);
+        }
     }
 }
 
@@ -99,4 +105,3 @@ searchBtn.onclick = function(){
     }
     viewPage(1);
 }
-
