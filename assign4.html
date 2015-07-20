@@ -6,11 +6,16 @@
     <style></style>
   </head>
   <body>
+  <fieldset>
+  <legend> Gits list:</legend>
     <div class="searchResults">
         <ul id="results">
         </ul>
         <table id="navTable">
-          <tr>
+        <tr>
+		        <td>
+            <p>The number of page you want to see</p>
+            </td>
             <td>
               <button id="nav1" class="navBtn">1</button>
             </td>
@@ -26,19 +31,22 @@
             <td>
               <button id="nav5" class="navBtn">5</button>
             </td>
-          </tr>
+         </tr>
         </table>
     </div>
-    <div class="searchEntry">
-        <input id="searchQuery" type="text" class="form-control">
-        <button id="searchButton" class="btn btn-primary">Search</button>
-    </div>
-    <br>
+	
         <input  type="checkbox" id="Python"       value="Python">Python
         <input  type="checkbox" id="JSON"         value="JSON">JSON
         <input  type="checkbox" id="JavaScript"   value="JavaScript">JavaScript
         <input  type="checkbox" id="SQL"          value="SQL">SQL
     <br>
-    <script src="code.js"></script>----
+    <div class="searchEntry">
+        <input id="searchQuery" type="text" class="form-control">
+        <button id="searchButton" class="btn btn-primary">Search</button>
+    </div>
+	<br>
+	</fieldset>
+	
+    <script src="code.js"></script>-
   </body>
 </html>
