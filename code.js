@@ -16,9 +16,9 @@ for(var i=0; i<navBtns.length; i++){
     navBtns[i].addEventListener('click', navClick, false);
 }
 
-function findbyUrl(url, array){
-	for (var i =0; i<gistsToDisplay; i++){
-		if(gistToDisplay[i]==url){
+function findbyUrl(url){
+	for (var i =0; i<gistsToDisplay.length; i++){
+		if(gistsToDisplay[i]==url){
 			return i;
 		}
 	}
