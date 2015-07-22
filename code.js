@@ -86,8 +86,6 @@ function viewPage(pageNum){
         results.removeChild(results.firstChild);
     }
     if(gistsToDisplay.length != 0){
-        console.log(pageNum*30);
-        console.log(gistsToDisplay.length);
         if(pageNum*30 <= gistsToDisplay.length || (pageNum == 0 && gistsToDisplay.length>0)){
             for(var i = pageNum*30; i < pageNum*30+30; i++){
                 var li =  document.createElement("li");
@@ -108,16 +106,6 @@ function viewPage(pageNum){
         li.appendChild(text);
         results.appendChild(li);
     }
-
-   if(gistsObjArray.length != 0){
-        for(var i = pageNum; i < pageNum+30; i++){
-            var li =  document.createElement("li");
-            li.appendChild(gistObjArray[i].convertToHTML("General"));
-            results.appendChild(li);
-        }
-    }
-	
-
 }
 
 function navClick(){
