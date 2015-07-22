@@ -87,7 +87,7 @@ function viewPage(pageNum){
     }
     if(gistsToDisplay.length != 0){
         if(pageNum*30 <= gistsToDisplay.length || (pageNum == 0 && gistsToDisplay.length>0)){
-            for(var i = pageNum*30; i < pageNum*30+30; i++){
+            for(var i = pageNum*30; (i < pageNum*30+30 && i<gistsToDisplay.length); i++){
                 var li =  document.createElement("li");
                 li.appendChild(gistsToDisplay[i].convertToHTML("General"));
                 results.appendChild(li);
