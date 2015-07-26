@@ -1,61 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Adding AJAX and HTML</title>
-    <meta content="">
-    <style></style>
-  </head>
-  <body>
-  <h1 align="center"> Assignment 4 </h1>
-  <fieldset>
-  <legend> Gist list:</legend>
-    
-  <input  type="checkbox" id="Python"       value="Python">Python
-  <input  type="checkbox" id="JSON"         value="JSON">JSON
-  <input  type="checkbox" id="JavaScript"   value="JavaScript">JavaScript
-  <input  type="checkbox" id="SQL"          value="SQL">SQL
-  <br>
-  <div class="searchEntry">
-      <input id="searchQuery" type="text" class="form-control">
-      <button id="searchButton" class="btn btn-primary">Search</button>
-  </div>
-  <br>
-  <div class="searchResults">
-      
-      <table id="navTable">
-      <tr>
-          <td>
-          <p>The number of page you want to see:</p>
-          </td>
-          <td>
-            <button id="nav1" class="navBtn">1</button>
-          </td>
-          <td>
-            <button id="nav2" class="navBtn">2</button>
-          </td>
-          <td>
-            <button id="nav3" class="navBtn">3</button>
-          </td>
-          <td>
-            <button id="nav4" class="navBtn">4</button>
-          </td>
-          <td>
-            <button id="nav5" class="navBtn">5</button>
-          </td>
-       </tr>
-      </table>
-      <ul id="results">
-      </ul>
-  </div>
-	<br>
-	<div class="favorites">
-		<h3>Favorites</h3>
-		<ul id="favList">
-			
-		</ul>
+	<head>
+		<title>Adding AJAX and HTML</title>
+		<meta content="">
+		<style></style>
+	</head>
+	<body>
+	<h1 align="center"> Assignment 4 </h1>
+	<fieldset>
+	<legend> Gist list:</legend>
+		
+	<!--<input  type="checkbox" id="Python"       value="Python">Python
+	<input  type="checkbox" id="JSON"         value="JSON">JSON
+	<input  type="checkbox" id="JavaScript"   value="JavaScript">JavaScript
+	<input  type="checkbox" id="SQL"          value="SQL">SQL
+	<br>-->
+	<div class="searchEntry">
+		<input id="searchQuery" type="text" class="form-control">
+		<button id="searchButton" class="btn btn-primary">Search</button>
 	</div>
+	<table id="navTable">
+		<tr>
+			<td>
+			<p>Page Number:</p>
+			</td>
+			<td>
+				<button id="nav1" class="navBtn">1</button>
+			</td>
+			<td>
+				<button id="nav2" class="navBtn">2</button>
+			</td>
+			<td>
+				<button id="nav3" class="navBtn">3</button>
+			</td>
+			<td>
+				<button id="nav4" class="navBtn">4</button>
+			</td>
+			<td>
+				<button id="nav5" class="navBtn">5</button>
+			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td style="width: 50%;  vertical-align: text-top;">
+				<h3>Search Results</h3>
+				<div class="searchResults">
+					<div id="results">
+
+					</div>
+				</div>
+			</td>
+			<td style="width: 5%">
+			</td>
+			<td style="width: 45%;  vertical-align: text-top;">
+				<div class="favorites">
+					<h3>Favorites</h3>
+					<div id="favList">
+						
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tr>
 	</fieldset>
 	
-    <script src="code.js"></script>-
-  </body>
+		<script src="code.js"></script>
+	</body>
 </html>

@@ -12,6 +12,15 @@ var currentPage = 1;
 
 var FavoriteList = document.getElementById("favList");
 
+var favorites = localStorage.getItem("favorites");
+if(favorites != null){
+    var parsedFavorites = JSON.parse(favorites);
+    for(var i=0; i<parsedFavorites.length; i++){
+        var newFav = new gist(parsedFavorites[i])
+        gistsToDisplayFavorites.push(newFav);
+    }
+}
+viewFavorites();
 
 for(var i=0; i<navBtns.length; i++){
     navBtns[i].addEventListener('click', navClick, false);
@@ -35,20 +44,21 @@ function gist(requestObj){
 			var d = document.createElement('div');
             var a = document.createElement("a");
             var btn = document.createElement("Button");
-            btn.innerHTML = "+";
-            btn.className = "btn btn-primary";
+            btn.innerHTML = "-";
+            btn.className = "btn btn-danger";
             var myURL = this.url;
             btn.onclick = function (){
                 var index = 0;
-                for (var i =0; i<gistsToDisplay.length; i++){
+                for (var i =0; i<gistsToDisplayFavorites.length; i++){
                     if(gistsToDisplayFavorites[i].url==myURL){
                         index = i;
                     }
                 }
-                gistToDisplay.push(gistsToDisplayFavorites[index]);
+                gistsToDisplay.push(gistsToDisplayFavorites[index]);
                 gistsToDisplayFavorites.splice(index,1);
                 viewPage(currentPage);
-                viewPageFavorites(currentPage);
+                viewFavorites();
+                localStorage.setItem("favorites", JSON.stringify(gistsToDisplayFavorites));
             }
             
             //var a = document.createAttribute("href");
@@ -79,7 +89,8 @@ function gist(requestObj){
 				gistsToDisplayFavorites.push(gistsToDisplay[index]);
                 gistsToDisplay.splice(index,1);
                 viewPage(currentPage);
-                viewPageFavorites(currentPage);
+                viewFavorites();
+                localStorage.setItem("favorites", JSON.stringify(gistsToDisplayFavorites));
 			}
 			
 			//var a = document.createAttribute("href");
@@ -127,52 +138,40 @@ function viewPage(pageNum){
     if(gistsToDisplay.length != 0){
         if(pageNum*30 <= gistsToDisplay.length || (pageNum == 0 && gistsToDisplay.length>0)){
             for(var i = pageNum*30; (i < pageNum*30+30 && i<gistsToDisplay.length); i++){
-                var li =  document.createElement("li");
-                li.appendChild(gistsToDisplay[i].convertToHTML("General"));
-                results.appendChild(li);
+                var div = gistsToDisplay[i].convertToHTML("General");
+                results.appendChild(div);
             }
         }
         else{
-            var li =  document.createElement("li");
+            var div =  document.createElement("div");
             text = document.createTextNode("No results on this page");
-            li.appendChild(text);
-            results.appendChild(li);
+            div.appendChild(text);
+            results.appendChild(div);
         }
     }
     else{
-        var li =  document.createElement("li");
+        var div =  document.createElement("li");
         text = document.createTextNode("No results");
-        li.appendChild(text);
-        results.appendChild(li);
+        div.appendChild(text);
+        results.appendChild(div);
     }
 }
 
-function viewPageFavorites(pageNum){
-    currentPage = pageNum;
-    pageNum--;
+function viewFavorites(){
     while(FavoriteList.firstChild){
         FavoriteList.removeChild(FavoriteList.firstChild);
     }
     if(gistsToDisplayFavorites.length != 0){
-        if(pageNum*30 <= gistsToDisplayFavorites.length || (pageNum == 0 && gistsToDisplayFavorites.length>0)){
-            for(var i = pageNum*30; (i < pageNum*30+30 && i<gistsToDisplayFavorites.length); i++){
-                var li =  document.createElement("li");
-                li.appendChild(gistsToDisplayFavorites[i].convertToHTML("General"));
-                FavoriteList.appendChild(li);
-            }
-        }
-        else{
-            var li =  document.createElement("li");
-            text = document.createTextNode("No results on this page");
-            li.appendChild(text);
-            FavoriteList.appendChild(li);
+        for(var i = 0; i<gistsToDisplayFavorites.length; i++){
+            var div = gistsToDisplayFavorites[i].convertToHTML("Favoites");
+            FavoriteList.appendChild(div);
         }
     }
     else{
-        var li =  document.createElement("li");
+        var div =  document.createElement("div");
         text = document.createTextNode("No results");
-        li.appendChild(text);
-        FavoriteList.appendChild(li);
+        div.appendChild(text);
+        FavoriteList.appendChild(div);
     }
 }
 
